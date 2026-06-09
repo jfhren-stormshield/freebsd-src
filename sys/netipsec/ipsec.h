@@ -232,12 +232,13 @@ struct ipsecstat {
 
 	uint64_t ips_clcopied;		/* clusters copied during clone */
 	uint64_t ips_mbinserted;	/* mbufs inserted during makespace */
-	/* 
+	/*
 	 * Temporary statistics for performance analysis.
 	 */
 	/* See where ESP/AH/IPCOMP header land in mbuf on input */
 	uint64_t ips_input_front;
-	uint64_t ips_input_middle;
+	uint64_t ips_input_middle_front;
+	uint64_t ips_input_middle_end;
 	uint64_t ips_input_end;
 };
 

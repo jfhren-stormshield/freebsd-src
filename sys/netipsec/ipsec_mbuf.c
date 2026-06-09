@@ -290,8 +290,18 @@ m_striphdr(struct mbuf *m, int skip, int hlen)
 		/*
 		 * The header lies in the "middle" of the mbuf; copy
 		 * the remainder of the mbuf down over the header.
+		 *
+		 * If there is less data to move from the front,
+		 * prioritize that.
 		 */
-		IPSECSTAT_INC(ips_input_middle);
+	if (roff < m1->m_len - (roff + hlen)) {
+		IPSECSTAT_INC(ips_input_middle_front);
+		bcopy(mtod(m1, u_char *),
+		      mtod(m1, u_char *) + hlen,
+		      roff);
+		m1->m_data += hlen;
+	} else {
+		IPSECSTAT_INC(ips_input_middle_end);
 		bcopy(mtod(m1, u_char *) + roff + hlen,
 		      mtod(m1, u_char *) + roff,
 		      m1->m_len - (roff + hlen));

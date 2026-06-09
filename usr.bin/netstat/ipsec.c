@@ -181,6 +181,14 @@ print_ipsecstats(const char *tag, const struct ipsecstat *ipsecstat)
 	    "{N:/cluster%s copied during clone}\n");
 	p(ips_mbinserted, "\t{:mbufs-inserted/%ju} "
 	    "{N:/mbuf%s inserted during makespace}\n");
+	p(ips_input_front, "\t{:mbufs-input-front/%ju} "
+	    "{N:/mbuf%s modified in front position during header stripping}\n");
+	p(ips_input_middle_front, "\t{:mbufs-input-middle-front/%ju} "
+	    "{N:/mbuf%s modified in middle-front position during header stripping}\n");
+	p(ips_input_middle_end, "\t{:mbufs-input-middle-end/%ju} "
+	    "{N:/mbuf%s modified in middle-end position during header stripping}\n");
+	p(ips_input_end, "\t{:mbufs-input-end/%ju} "
+	    "{N:/mbuf%s modified in end position during header stripping}\n");
 #undef p2
 #undef p
 	xo_close_container(tag);
